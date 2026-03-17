@@ -1,0 +1,568 @@
+
+1. Variables (var, let, const)
+*************************************************
+
+variable =>  variable ek container hota hai  jisme  value ko store  kiya jata hai 
+
+var =>  var ek variable ka type hota hai isme bhi value store hoti hai 
+    
+   Important
+   -------------
+         * var ek  old tarika hai  isko avoid karna chaiye.
+
+         * ye function scoped hota hai block scope nhi hota 
+
+         * Re-declare ho skata hai  bug aa sakta hai kabhi kabhi
+
+         * deploy karne me issue aa skata hai 
+
+         * aaj kal practically use nhi karte hai 
+
+let =>  let ek modern and sabse usefull  variable hai 
+
+  example  =  let city =  "Khutar"
+
+  Features
+  ----------
+      
+       * Block scoped {} hota hai 
+
+       * Reassign  kar sakte hai 
+
+       * re declare nhi kar sakte hai
+
+example 
+
+      let a = 10;
+      a = 20; // allowed ✅
+
+      // let a = 30; ❌ error
+
+kab use karna chaiye => jab value ko future me change karna ho
+
+example =>  
+
+    let count = 0;
+
+    app.get("/",(req,res)=>{
+        count++;
+
+        res.send("visited" + count + "times");
+    });
+
+const => most recommended  varibale used
+
+Features
+----------------
+    
+      * Block scoped hota hai 
+      
+      * Reassign nhi kar sakte
+
+      * Always initialize karna padta hai 
+
+      const a = 10;
+      a = 20; // ❌ error
+
+kb use karenge => jb value change nhi karni hogi tb
+
+👉 Real example:
+
+const express = require("express");
+const app = express();
+
+Special Case: Object & Array with const
+
+const user = {
+    name: "Suraj"
+};
+
+user.name = "Rahul"; // ✅ allowed
+
+👉 क्यों?
+➡️ Reference constant है, value modify हो सकती है
+
+📲 1. Data Types
+*************************************************************
+
+👉 Q: JS me data types kitne type ke hote hai?
+👉 Answer: 2 type
+
+Primitive → number, string, boolean, null, undefined, bigint, symbol
+
+Non-Primitive → object, array
+
+👉 Q: null aur undefined me difference?
+👉 Answer:
+
+undefined → value assign nahi hui
+
+null → intentionally empty
+
+📲 2. Operators
+***************************************************************
+
+👉 Q: == aur === me difference?
+👉 Answer:
+
+== → value check karta hai
+
+=== → value + type dono check karta hai ✅
+
+👉 Example:
+
+5 == "5"   // true
+5 === "5"  // false
+
+📲 3. Conditions (if, switch)
+************************************************
+
+👉 Q: if-else kab use karte hai?
+👉 Answer:
+👉 Jab condition check karni ho
+
+if(age > 18){
+    console.log("Adult");
+}else{
+    console.log("Minor");
+}
+
+👉 Q: switch kab use kare?
+👉 Answer:
+👉 Jab multiple fixed options ho
+
+switch(day){
+    case 1: console.log("Mon"); break;
+    case 2: console.log("Tue"); break;
+    default: console.log("Invalid");
+}
+
+📲 4. Loops (for, while)
+****************************************************
+
+👉 Q: for loop kab use kare?
+👉 Answer:
+👉 Jab count pata ho
+
+for(let i=0; i<5; i++){
+    console.log(i);
+}
+
+👉 Q: while loop kab use kare?
+👉 Answer:
+👉 Jab condition based loop ho
+
+let i = 0;
+while(i < 5){
+    console.log(i);
+    i++;
+}
+
+📲 5. Functions
+****************************************************************
+
+👉 Q: Function kya hota hai?
+👉 Answer:
+👉 Reusable block of code
+
+function add(a, b){
+    return a + b;
+}
+
+👉 Q: Arrow function kya hota hai?
+👉 Answer:
+👉 Short syntax function
+
+const add = (a, b) => a + b;
+
+📲 6. Arrays & Objects
+**************************************************************
+
+👉 Q: Array kya hota hai?
+👉 Answer:
+👉 Multiple values ek variable me
+
+let arr = [10, 20, 30];
+
+👉 Q: Object kya hota hai?
+👉 Answer:
+👉 Key-value pair
+
+let user = {
+    name: "Suraj",
+    age: 20
+};
+
+👉 Q: Array aur Object me difference?
+👉 Answer:
+
+Array → index based
+
+Object → key based
+
+📲 1. Arrow Functions (=>)
+********************************************************
+
+👉 Q: Arrow function kya hota hai?
+👉 Answer: Short syntax function
+
+const add = (a, b) => a + b;
+
+🔥 Important Points:
+--------------------------
+
+👉 this keyword change ho jata hai (lexical this)
+👉 Short aur clean code
+
+⚡ Normal vs Arrow
+--------------------------
+
+// Normal
+function sayHi(){
+    console.log("Hello");
+}
+
+// Arrow
+const sayHi = () => console.log("Hello");
+
+🎯 Kab use kare?
+
+✔️ Short functions
+✔️ Callback (map, filter)
+❌ Object methods me avoid (this issue)
+
+📲 2. Template Literals ( )
+***********************************************************
+
+👉 Q: Template literal kya hai?
+👉 Answer: String ko dynamic banane ke liye
+
+let name = "Suraj";
+console.log(`Hello ${name}`);
+
+🔥 Features:
+----------------------
+
+${} → variable use
+
+Multi-line string
+
+Readable code
+
+🎯 Kab use kare?
+
+✔️ Dynamic message
+✔️ API response
+✔️ UI rendering
+
+📲 3. Destructuring
+*******************************************************
+
+👉 Q: Destructuring kya hai?
+👉 Answer: Object/Array se values directly nikalna
+
+👉 Array Destructuring
+let arr = [10, 20, 30];
+
+let [a, b] = arr;
+console.log(a); // 10
+👉 Object Destructuring
+let user = {
+    name: "Suraj",
+    age: 20
+};
+
+let {name, age} = user;
+🔥 Advanced:
+let {name: userName} = user;
+🎯 Kab use kare?
+
+✔️ API data
+✔️ React props
+✔️ Clean code
+
+📲 4. Spread & Rest Operators (...)
+***************************************************************
+
+👉 Same syntax but different use 😎
+
+🔹 Spread Operator
+
+👉 Q: Spread kya karta hai?
+👉 Answer: Values ko expand karta hai
+
+let arr1 = [1, 2];
+let arr2 = [...arr1, 3, 4];
+
+👉 Object copy:
+
+let user = {name: "Suraj"};
+let newUser = {...user, age: 20};
+🎯 Use:
+
+✔️ Copy array/object
+✔️ Merge data
+
+🔹 Rest Operator
+
+👉 Q: Rest kya karta hai?
+👉 Answer: Remaining values collect karta hai
+
+function sum(...numbers){
+    return numbers.reduce((a, b) => a + b);
+}
+
+👉 Destructuring me:
+
+let [a, ...rest] = [1,2,3,4];
+🎯 Use:
+
+✔️ Unknown arguments
+✔️ Flexible functions
+
+📲 5. Modules (import / export)
+**********************************************************
+
+👉 Q: Modules kya hote hai?
+👉 Answer: Code ko alag files me divide karna
+
+🔹 Export
+export const name = "Suraj";
+
+export function add(a, b){
+    return a + b;
+}
+🔹 Import
+import {name, add} from "./file.js";
+🔥 Default Export
+export default function(){
+    console.log("Hello");
+}
+
+👉 Import:
+
+import myFunc from "./file.js";
+⚡ Node.js me (CommonJS)
+// export
+module.exports = add;
+
+// import
+const add = require("./file");
+🔥 Real Example (Node.js)
+// math.js
+export const add = (a, b) => a + b;
+export const sub = (a, b) => a - b;
+
+// app.js
+import {add} from "./math.js";
+
+console.log(add(10, 20));
+
+🚀 1. Closures
+*********************************************************
+👉 Concept
+
+Closure = function + उसका lexical scope (outer variables)
+
+👉 मतलब: inner function outer function के variables access कर सकता है—even बाद में भी
+
+🔥 Example
+function outer(){
+    let count = 0;
+
+    return function inner(){
+        count++;
+        return count;
+    }
+}
+
+const fn = outer();
+console.log(fn()); // 1
+console.log(fn()); // 2
+
+👉 count memory में save रहता है → यही closure है
+
+🎯 Use Cases
+----------------------------------
+
+✔️ Data hiding (private variables)
+✔️ Counter / state maintain
+✔️ React hooks internally
+
+📲 Interview Q
+-------------------------------------
+
+👉 Q: Closure kya hota hai?
+👉 A: Function jo apne outer scope ke variables ko remember karta hai even after execution.
+
+🚀 2. Callbacks
+***********************************************
+
+👉 Concept
+
+Function ko argument me pass karna
+
+function greet(name, callback){
+    console.log("Hello " + name);
+    callback();
+}
+
+greet("Suraj", () => console.log("Done"));
+🔥 Problem → Callback Hell 😵
+login(()=>{
+    getData(()=>{
+        process(()=>{
+            done();
+        })
+    })
+})
+
+🎯 Use
+
+✔️ Async operations
+✔️ Event handling
+
+📲 Interview Q
+-------------------------
+
+👉 Q: Callback kya hai?
+👉 A: Function passed as argument jo baad me call hota hai
+
+🚀 3. Promises
+********************************************
+
+👉 Concept
+
+Promise = future value (pending → resolved/rejected)
+
+🔥 Example
+const promise = new Promise((resolve, reject) => {
+    let success = true;
+
+    if(success){
+        resolve("Done");
+    } else {
+        reject("Error");
+    }
+});
+👉 Use
+promise
+.then(res => console.log(res))
+.catch(err => console.log(err));
+🎯 Use Cases
+
+✔️ API calls
+✔️ Async work handle
+
+📲 Interview Q
+
+👉 Q: Promise ke states kya hai?
+👉 A: pending, fulfilled, rejected
+
+🚀 4. Async / Await
+*************************************************
+
+👉 Concept
+
+Promise ko synchronous style me likhna
+
+🔥 Example
+async function fetchData(){
+    try{
+        let res = await fetch("url");
+        console.log(res);
+    }catch(err){
+        console.log(err);
+    }
+}
+🔥 Important
+
+👉 await sirf async function me use hota hai
+
+🎯 Use
+
+✔️ Clean async code
+✔️ Readable API handling
+
+📲 Interview Q
+
+👉 Q: async/await ka fayda kya hai?
+👉 A: Promise ko readable aur synchronous style me likhne ke liye
+
+🚀 5. Event Loop (VERY IMPORTANT 🔥)
+***********************************************
+
+👉 Concept
+
+JS single-threaded hai → event loop async work handle karta hai
+
+🔥 Flow
+
+Call Stack
+
+Web APIs
+
+Callback Queue
+
+Event Loop
+
+🔥 Example
+console.log("Start");
+
+setTimeout(()=>{
+    console.log("Async");
+}, 0);
+
+console.log("End");
+
+👉 Output:
+
+Start
+End
+Async
+
+👉 क्यों?
+Event loop async ko baad me run karta hai
+
+🎯 Use
+
+✔️ Non-blocking system
+✔️ Node.js performance
+
+📲 Interview Q
+
+👉 Q: JS async kaise handle karta hai?
+👉 A: Event loop ke through
+
+🚀 6. Prototype & Inheritance
+*****************************************************************
+
+👉 Concept
+
+हर object के पास एक hidden property होती है → [[Prototype]]
+
+🔥 Example
+function Person(name){
+    this.name = name;
+}
+
+Person.prototype.sayHi = function(){
+    return "Hi " + this.name;
+};
+
+const p1 = new Person("Suraj");
+console.log(p1.sayHi());
+🔥 Inheritance
+function Student(name, marks){
+    Person.call(this, name);
+    this.marks = marks;
+}
+
+Student.prototype = Object.create(Person.prototype);
+
+const s1 = new Student("Suraj", 90);
+🎯 Use
+
+✔️ Memory optimization
+✔️ OOP in JS
+✔️ Reusable methods

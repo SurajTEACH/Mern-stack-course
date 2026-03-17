@@ -1,0 +1,314 @@
+Core Modules
+*************************
+
+🔥 1. fs Module क्या है?
+***************************************************************
+
+fs (File System) Node.js का built-in module है जिससे हम:
+
+File create कर सकते हैं
+
+File read कर सकते हैं
+
+File update कर सकते हैं
+
+File delete कर सकते हैं
+
+Folder manage कर सकते हैं
+
+👉 मतलब: Server से direct system की files handle करना
+
+🔥 3. Types of fs Operations
+----------------------------------------------------
+
+1. Synchronous (Blocking)
+
+👉 Code line-by-line execute होगा (wait करेगा)
+
+const data = fs.readFileSync("file.txt","utf-8");
+console.log(data);
+
+✔ Simple but slow
+
+2. Asynchronous (Non-Blocking)
+
+👉 Background में काम होगा (callback से result आएगा)
+
+const data = fs.readFile("file.txt","utf-8", (err, data)=>{
+    if(err) throw err;
+
+    console.log(data);
+})
+
+✔ Fast (Production में यही use होता है)
+
+3. Promises (Modern तरीका)
+
+const fs = require("fs/promise");
+
+async function readFile(){
+    const data = await fs.readFile("file.txt","uft-8");
+    console.log(data);
+}
+
+readFile();
+
+✔ Clean + Modern + Best
+
+📁 4. File Operations (CRUD)
+--------------------------------------------------------
+
+🟢 1. File Create
+
+fs.writeFile("file.text","hello suraj", (err)=>{
+     if(err) throw err;
+});
+
+🟡 2. Append (Add data)
+
+fs.appendFile("test.text","\nNew Line", (err)=>{
+    if(err) throw err;
+})
+
+🔵 3. Read File
+
+fs.readFile("test.text", "uft-8" , (err, data)=>{
+      if(err) throw err;
+
+      console.log(data);
+})
+
+🔴 4. Delete File
+
+fs.unlink("test.text",(err)=>{
+    if(err) throw err;
+})
+
+🌐 2. http Module क्या है?
+----------------------------------------------------------------
+
+http module Node.js का built-in module है जिससे हम:
+
+👉 Web server बना सकते हैं
+👉 Request (client से) handle कर सकते हैं
+👉 Response (client को) भेज सकते हैं
+
+📌 Simple language:
+
+Browser ↔ Server communication handle करता है
+
+⚙️ 2. Import कैसे करें?
+
+const http = require("http");
+
+import http from "http"
+
+ya 
+
+const http = require("http");
+
+const server = http.createServer((req, res)=>{
+    res.write("hello");
+    res.end();
+});
+
+server.listen(3000,()=>{
+    console.log("server runing on port 3000");
+})
+
+📁 1. path Module क्या है?
+*******************************************************************
+
+path module का काम है:
+
+👉 File/Folder के paths को handle करना
+👉 OS (Windows/Linux) के हिसाब से सही path बनाना
+
+📌 Simple भाषा:
+
+File का सही address बनाना और manage करना
+
+⚙️ 2. Import कैसे करें?
+------------------------------------------
+
+const path = require("path");
+🔥 3. सबसे Important Methods
+
+
+🟢 1. path.join() (सबसे ज्यादा use ⭐)
+----------------------------------------------------
+
+👉 Multiple path को safely जोड़ता है
+
+const filePath = path.join("folder", "subfolder", "file.txt");
+console.log(filePath);
+
+✔ Output (Windows):
+
+folder\subfolder\file.txt
+
+✔ Output (Linux/Mac):
+
+folder/subfolder/file.txt
+
+👉 Automatically OS के हिसाब से separator लगाता है
+
+🟡 2. path.resolve()
+--------------------------------------------------------
+
+👉 Absolute path (full path) देता है
+
+const fullPath = path.resolve("file.txt");
+console.log(fullPath);
+
+✔ Output:
+
+C:\Users\Suraj\file.txt
+
+
+🔵 3. path.basename()
+-----------------------------------------------------
+
+👉 File का नाम निकालता है
+
+const name = path.basename("/home/user/file.txt");
+console.log(name);
+
+✔ Output:
+
+file.txt
+
+🔴 4. path.dirname()
+---------------------------------------------------------
+
+👉 Folder का path देता है
+
+const dir = path.dirname("/home/user/file.txt");
+console.log(dir);
+
+✔ Output:
+
+/home/user
+🟣 5. path.extname()
+
+👉 File extension निकालता है
+-----------------------------------------------------------
+
+const ext = path.extname("file.txt");
+console.log(ext);
+
+✔ Output:
+
+.txt
+
+
+⚫ 6. path.parse()
+------------------------------------------------------------
+
+👉 Path को object में तोड़ देता है
+
+const info = path.parse("/home/user/file.txt");
+console.log(info);
+
+✔ Output:
+
+{
+  root: '/',
+  dir: '/home/user',
+  base: 'file.txt',
+  ext: '.txt',
+  name: 'file'
+}
+
+⚪ 7. path.format()
+-------------------------------------------------------
+
+👉 Object से path बनाता है
+
+const p = path.format({
+  dir: "/home/user",
+  base: "file.txt"
+});
+console.log(p);
+
+🖥️ 4. os Module क्या है?
+-*******************************************************
+
+os module system (Operating System) की जानकारी देता है:
+
+👉 CPU info
+👉 RAM (memory)
+👉 OS type
+👉 Network info
+
+📌 Simple भाषा:
+
+Computer की internal details निकालने का tool
+
+⚙️ 2. Import कैसे करें?
+const os = require("os");
+🔥 3. Basic Methods (Most Important)
+🟢 1. os.platform()
+
+👉 OS का platform बताता है
+
+console.log(os.platform());
+
+✔ Output:
+
+win32 (Windows)
+
+linux
+
+darwin (Mac)
+
+🟡 2. os.arch()
+
+👉 System architecture
+
+console.log(os.arch());
+
+✔ Output:
+
+x64
+
+arm
+
+🔵 3. os.hostname()
+
+👉 Computer का नाम
+
+console.log(os.hostname());
+
+🔴 4. os.uptime()
+
+👉 System कब से चालू है (seconds में)
+
+console.log(os.uptime());
+
+⚡ 5. events Module क्या है?
+**********************************************************************
+
+events module हमें custom events create और handle करने देता है
+
+📌 Simple भाषा:
+
+"जब कोई काम हो → तब एक event trigger करो → और कोई function उसे handle करे"
+
+👉 Example:
+
+Button click → event
+
+API hit → event
+
+File read complete → event
+
+;
+🧠 4. Basic Concept
+
+👉 2 चीजें होती हैं:
+
+Emit (event fire करना)
+
+Listen (event को सुनना)
+

@@ -1,0 +1,364 @@
+Node.js Basics
+***************************
+
+Node.js kya hai
+
+Node.js architecture
+
+V8 Engine
+
+Non-blocking I/O
+
+Event Driven Architecture
+
+
+Node.js kya hai 
+*********************************
+
+👉 Node.js ek JavaScript runtime environment hai jo server-side programming ke liye use hota hai aur non-blocking architecture pe kaam karta hai।
+
+
+1) Open-source, server-side javascript runtime
+2) Allows you to run javaScript on your machine or servers.
+3) Built on the V8 javaScript engine for speed.
+4) Robust ecosystem with npm 
+
+Node.Js :=>  node.js is not a programming language or a framework, but rathe a javacript runtime environment that allows developer to run javascript outside of brower
+
+creation ofnode.js => 2009 by Ryan Dahl 
+
+
+Open Source :-  open source means that the source code of node.js is public available
+
+Cross-Platform:- crss-platform means Node.js can run on multiple oeratin system without needing major chnges
+
+
+node.js me kis bhi module ka use karna ho to ye function use karte hai =>  require();
+
+1) agar aap http module ka use karna ho to const htt = require("http") yese use karenge  
+
+
+🚀 Node.js architecture
+**********************************
+
+⚙️ 3. Node.js Architecture Components
+
+🔹 1. Client Requests
+-----------------------------------------
+
+User browser ya app se request bhejta hai
+👉 Example:
+
+GET /api/users
+
+🔹 2. Event Queue
+----------------------------------------------
+
+Saari incoming requests yaha line me aati hain
+👉 Queue = waiting line
+
+🔹 3. Event Loop (❤️ Heart of Node.js)
+-------------------------------------------
+
+👉 Ye sabse important part hai
+
+👉 Kaam:
+
+Queue se request uthata hai
+
+Decide karta hai kya karna hai
+
+🔹 4. Call Stack
+---------------------------------------------------
+
+Simple (synchronous) tasks yaha execute hote hain
+
+👉 Example:
+
+console.log("Hello");
+
+🔹 5. Thread Pool (Background Workers)
+----------------------------------------------------
+
+👉 Heavy kaam yaha bheja jata hai
+
+File system
+
+Database
+
+API calls
+
+👉 Ye libuv library handle karti hai internally
+
+🔹 6. Callback Queue
+--------------------------------------------------
+
+👉 Jab background kaam complete ho jata hai:
+
+Result yaha aata hai
+
+🔹 7. Event Loop again
+-------------------------------------------------------
+
+Callback queue se result uthata hai
+
+Execute karta hai
+
+🚀 V8 Engine kya hai?
+*********************************
+
+👉 V8 Engine ek JavaScript Engine hai jo originally Google ne banaya tha
+👉 Ye JavaScript code ko machine code (0,1) me convert karta hai
+
+🔹 Simple Definition
+
+👉 V8 Engine = JavaScript ko fast execute karne wala engine
+
+🧠 V8 Engine ka role Node.js me
+
+👉 Node.js khud JavaScript run nahi karta
+👉 Wo V8 Engine ka use karta hai
+
+👉 Flow:
+
+JavaScript Code → V8 Engine → Machine Code →
+
+⚙️ V8 Engine ka internal working
+*****************************************
+
+🔥 1. Parsing
+---------------------
+
+JS code ko read karta hai
+
+Syntax check karta hai
+
+🔥 2. Ignition (Interpreter)
+------------------------------------
+
+👉 Code ko bytecode me convert karta hai
+
+👉 Bytecode = intermediate form (fast execution ke liye)
+
+🔥 3. TurboFan (Compiler)
+----------------------------------
+
+👉 Hot code (jo baar-baar run hota hai) ko optimize karta hai
+
+👉 Isko direct machine code me convert karta hai
+
+
+
+❓ Q1: V8 Engine kya karta hai?
+
+👉 JS ko machine code me convert karta hai
+
+❓ Q2: V8 ke main components?
+
+👉 Ignition + TurboFan
+
+❓ Q3: V8 fast kyu hai?
+
+👉 JIT compilation + optimization
+
+🚀 Non-Blocking I/O kya hota hai?
+************************************************************
+
+👉 Non-Blocking I/O ek technique hai jisme program kisi operation (I/O) ke complete hone ka wait nahi karta, balki next kaam turant start kar deta hai।
+
+🔹 Simple Definition
+
+👉 "Wait kiye bina kaam continue karna = Non-Blocking I/O"
+
+🧠 I/O kya hota hai?
+--------------------------------
+
+👉 I/O = Input / Output operations
+Jaise:
+
+File read/write
+
+Database call
+
+API request
+
+⚖️ Blocking vs Non-Blocking
+/////////////////////////////////////////////////////
+
+❌ Blocking I/O
+---------------------------------
+
+👉 Program ruk jata hai jab tak kaam complete na ho
+
+const data = fs.readFileSync("file.txt");
+console.log(data);
+console.log("Done");
+
+👉 Output:
+
+(file content)
+Done
+
+👉 Problem:
+
+Slow
+
+Ek time par ek hi kaam
+
+✅ Non-Blocking I/O
+----------------------------------------
+
+👉 Program wait nahi karta
+
+fs.readFile("file.txt", (err, data) => {
+  console.log(data);
+});
+
+console.log("Done");
+
+👉 Output:
+
+Done
+(file content later)
+
+👉 Yaha:
+
+File read background me ho raha hai
+
+Program next line chala deta hai
+
+🔥 Real Life Example
+-------------------------------------
+
+👉 Socho tum restaurant me ho:
+
+Blocking:
+
+Order diya → khade ho kar wait
+
+Fir next kaam
+
+Non-Blocking:
+
+Order diya → baith gaye / phone use
+
+Jab ready → bula liya
+
+👉 Node.js isi second approach pe kaam karta hai
+
+⚙️ Node.js me kaise hota hai?
+----------------------------------------------------------
+
+👉 Node.js use karta hai:
+
+Event Loop
+
+Callback / Promise / Async-Await
+
+Background threads (libuv)
+
+👉 Flow:
+
+Request aayi
+
+Heavy task → background me gaya
+
+Node next request handle karta hai
+
+Task complete → callback run
+
+⚡ Benefits
+----------------------------------------------------------
+
+✅ Fast performance
+✅ Multiple users handle
+✅ Server crash nahi hota easily
+✅ Scalable
+
+🚀 Event-Driven Architecture kya hota hai?
+***************************************************************
+
+👉 Event-Driven Architecture (EDA) ek aisa system design hai jahan poora application “events” ke base par kaam karta hai।
+
+👉 Ye concept Node.js ka core part hai।
+
+Simple Definition
+
+👉 "Jab koi event hota hai → system react karta hai"
+
+🧠 Event kya hota hai?
+-------------------------------------
+
+👉 Event = koi bhi action ya signal
+
+Examples:
+
+Button click
+
+API request
+
+File load
+
+User login
+
+⚙️ Event-Driven Architecture ke Components
+---------------------------------------------------------------
+
+🔥 1. Event Emitter
+
+👉 Jo event generate karta hai
+
+👉 Example:
+
+User ne button click kiya
+
+🔥 2. Event Listener
+
+👉 Jo event ko sunta hai
+
+🔥 3. Event Handler (Callback)
+
+👉 Event hone par kya action lena hai
+
+🔹 npm kya hai? (Node Package Manager)
+****************************************************************
+
+👉 npm = package manager
+👉 Ye help karta hai:
+
+Libraries install karne me
+
+Dependencies manage karne me
+
+🔹 package.json kya hota hai?
+***************************************************************
+
+👉 Ye ek project configuration file hoti hai
+
+👉 Isme store hota hai:
+
+Project name
+
+Version
+
+Dependencies
+
+Scripts
+
+🔹 npm scripts kya hote hai?
+*****************************************************************
+
+👉 Scripts = predefined commands
+
+👉 Tum custom commands bana sakte ho
+
+{
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  }
+}
+
+▶️ Run kaise kare?
+npm run start
+npm run dev
