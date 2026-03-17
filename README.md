@@ -3,6 +3,7 @@
 Node.js JavaScript runtime hai, isliye strong JS knowledge zaroori hai.
 
 Basic JavaScript
+****************************************
 
 Variables (var, let, const)
 
@@ -18,7 +19,9 @@ Functions
 
 Arrays & Objects
 
+
 Intermediate JavaScript
+****************************************************************************
 
 Arrow Functions
 
@@ -31,6 +34,7 @@ Spread & Rest Operators
 Modules (import / export)
 
 Advanced JavaScript (Node ke liye important)
+**********************************************************************************
 
 Closures
 
@@ -49,6 +53,7 @@ Prototype & Inheritance
 Ab Node.js start karo.
 
 Node.js Basics
+****************************************************
 
 Node.js kya hai
 
@@ -61,6 +66,7 @@ Non-blocking I/O
 Event Driven Architecture
 
 Node.js Setup
+**************************************************
 
 Node install
 
@@ -71,6 +77,7 @@ package.json
 npm scripts
 
 Core Modules
+*********************************************************
 
 Node ke built-in modules:
 
@@ -93,6 +100,7 @@ Example:
 const fs = require("fs");
 
 fs.writeFileSync("test.txt", "Hello Node.js");
+
 🟢 Phase 3: Working with Modules
 
 Node.js me code modular hota hai.
