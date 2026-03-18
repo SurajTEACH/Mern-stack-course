@@ -1,0 +1,408 @@
+🟢 1. MongoDB kya hai?
+********************************************************************************
+
+👉 MongoDB ek NoSQL database hai
+👉 Data ko JSON jaise format (BSON) me store karta hai
+
+💬 Simple language:
+
+"MongoDB me data table me nahi, balki documents (objects) ke form me hota hai"
+
+🟡 2. SQL vs MongoDB (Basic Difference)
+********************************************************************************
+
+| SQL (MySQL)  | MongoDB         |
+| ------------ | --------------- |
+| Table        | Collection      |
+| Row          | Document        |
+| Column       | Field           |
+| Fixed schema | Flexible schema |
+
+💬 Example:
+
+{
+  "name": "Suraj",
+  "age": 21,
+  "city": "Bhopal"
+}
+
+🟢 3. Important Terms
+--------------------------------------------
+
+📌 Database → pura data store
+📌 Collection → table jaisa
+📌 Document → ek record
+
+💬 Example:
+
+Database → college
+Collection → students
+Document → ek student ka data
+
+
+🟡 4. Install & Start 
+********************************************************************************
+
+MongoDB install karo
+
+Command run karo:
+
+mongosh
+
+
+🟢 5. Basic Commands (Most Important 🔥)
+********************************************************************************
+
+👉 Database create/use
+-------------------------
+
+ use collage
+
+👉 Collection me data insert
+---------------------------------
+
+db.students.intertOne({
+    name:"kajal sahu"
+    age:21,
+    city:"Bhopal
+});
+
+👉 Multiple data insert
+---------------------------------
+
+db.students.intertMany({
+   {name:"Ram", age:21},
+   {name:"Lakshman", age:18}
+});
+
+👉 Data dekhna (Read)
+---------------------------------
+
+db.students.find();
+
+ Pretty format:
+
+db.students.find().pretty()
+
+👉 Filter (Query) conditional
+----------------------------------
+
+* agar age 21 ho usi data ko dikhao 
+
+db.students.find({age:21});
+
+🟡 6. Operators (🔥 Interview Favorite)
+*******************************************************************************
+
+👉 Comparison
+---------------------------------
+
+$gt => greater then
+
+$lt => less then
+
+
+{age : {$gt:20}} // age agar greater then ho table
+
+{age: {$lt:20}} // age less then ho 
+
+👉 Logical
+---------------------------------
+
+$and => iska use tb kana jb tumko data chaiye like ager collection me age jiska 21 ho or city Bhopal ho ohi bss data pr work karna ho tb =>
+
+{ $and : [{age:21}, {city:"Bhopal"}]}
+
+$or => iska use tb karna jb collection me se sapose karo ki ager jiska age ya to 21 ho ya to 22 ho dono me se koi ek ka dT pr work karna ho 
+
+{ $or: [{age: 21}, {age: 22}] }
+
+🟢 1. Comparison Operators (Data filter करने का base)
+********************************************************************
+
+🔸 $eq (Equal)
+-------------------------
+
+👉 काम: exact match
+👉 कैसे काम करता है: MongoDB document के field की value compare करता है
+
+db.students.find({ age: { $eq: 21 } })
+
+💬 Working:
+
+MongoDB हर document में age == 21 check करता है
+
+🔸 $ne (Not Equal)
+------------------------------
+
+👉 काम: जो equal नहीं है
+👉 कैसे काम करता है: value match नहीं होनी चाहिए
+
+db.students.find({ age: { $ne: 21 } })
+
+💬 Working:
+
+age 21 नहीं है → वो सारे records मिलेंगे
+
+🔸 $gt, $gte, $lt, $lte
+----------------------------------
+
+👉 काम: range filtering
+
+{ age: { $gt: 20 } }   // > 20
+{ age: { $gte: 20 } }  // >= 20
+{ age: { $lt: 25 } }   // < 25
+{ age: { $lte: 25 } }  // <= 25
+
+💬 Working:
+
+MongoDB numeric comparison करता है (like loop internally)
+
+🟡 2. Logical Operators (Multiple condition combine)
+**************************************************************
+
+🔸 $and
+----------------------------
+
+👉 काम: सभी condition true होनी चाहिए
+
+db.students.find({
+  $and: [{ age: 21 }, { city: "Bhopal" }]
+})
+
+💬 Working:
+
+MongoDB पहले age check करेगा, फिर city → दोनों match होने पर ही result
+
+🔸 $or
+--------------------------------
+
+👉 काम: कोई एक condition true
+
+db.students.find({
+  $or: [{ age: 21 }, { age: 22 }]
+})
+
+💬 Working:
+
+अगर एक भी condition match → record मिल जाएगा
+
+🔸 $not
+-------------------------------------
+
+👉 काम: condition उल्टा करना
+
+db.students.find({
+  age: { $not: { $gt: 20 } }
+})
+
+💬 Working:
+
+$gt:20 का उल्टा → age ≤ 20
+
+🔸 $nor
+-------------------------------------
+
+👉 काम: दोनों condition false
+
+db.students.find({
+  $nor: [{ age: 21 }, { city: "Delhi" }]
+})
+
+💬 Working:
+
+age ≠ 21 AND city ≠ Delhi
+
+
+🟢 3. Element Operators (Field exist/type check)
+************************************************************
+
+🔸 $exists
+---------------------------
+
+
+👉 काम: field present है या नहीं
+
+db.students.find({ age: { $exists: true } })
+
+💬 Working:
+
+MongoDB check करता है कि document में age field है या नहीं
+
+🔸 $type
+--------------------------------------
+
+👉 काम: data type check
+
+db.students.find({ age: { $type: "int" } })
+
+💬 Working:
+
+BSON type check करता है internally
+
+🟡 4. Evaluation Operators
+***********************************************************
+
+🔸 $regex (🔥 important)
+--------------------------------------
+
+👉 काम: pattern matching
+
+db.students.find({ name: { $regex: "^S" } })
+
+💬 Working:
+
+regex engine run होता है → "S से start" match करेगा
+
+🔸 $text
+------------------------------------------
+
+👉 काम: full text search
+
+db.students.find({ $text: { $search: "Suraj" } })
+
+💬 Working:
+
+text index में search होता है (fast searching)
+
+🔸 $where (⚠️ slow)
+--------------------------------------------
+
+👉 काम: custom JS logic
+
+db.students.find({
+  $where: "this.age > 20"
+})
+
+💬 Working:
+
+हर document पर JavaScript run होता है (slow 🚫)
+
+🟢 5. Array Operators
+**********************************************************
+
+🔸 $in
+-------------------------------
+
+👉 काम: multiple values में check
+
+db.students.find({ age: { $in: [21, 22] } })
+
+💬 Working:
+
+MongoDB check करता है: age == 21 OR age == 22
+
+🔸 $nin
+-----------------------------------
+
+👉 काम: exclude values
+
+db.students.find({ age: { $nin: [21, 22] } })
+
+💬 Working:
+
+age ≠ 21 AND age ≠ 22
+
+🔸 $all
+--------------------------------------
+
+👉 काम: array में सभी values होनी चाहिए
+
+db.students.find({
+  skills: { $all: ["Java", "Node"] }
+})
+
+💬 Working:
+
+skills array में दोनों मौजूद होने चाहिए
+
+🔸 $size
+-------------------------------------
+
+👉 काम: array length
+
+db.students.find({ skills: { $size: 2 } })
+
+💬 Working:
+
+array की length count करता है
+
+🔸 $elemMatch (🔥 powerful)
+--------------------------------------------------
+
+👉 काम: array object में condition
+
+db.students.find({
+  marks: {
+    $elemMatch: { subject: "Math", score: { $gt: 80 } }
+  }
+})
+
+💬 Working:
+
+एक ही element में दोनों condition match होनी चाहिए
+
+🟢 7. Update Data
+********************************************************************************
+
+db.students.UpdateOne(
+  {name : "Suraj"},
+  {$set: {age:25}}
+);
+
+isme yese work huaa jiaka name suraj hai me age upadte kar do 
+
+🟢 8. Delete Data
+********************************************************************************
+
+db.students.deleteOne({name:"suraj"});
+
+jika name suraj hoga o data delete ho jayega
+
+🟡 9. Indexing (Performance 🚀)
+********************************************************************************
+
+👉 Fast search ke liye use hota hai
+
+db.students.createIndex({ name:1})
+
+"Jab data lakhon me ho jata hai tab indexing important hota hai  ye jo query h o name se hi search hoga "
+
+1 => Ascending order indexing
+
+-1 => Descending order indexing
+
+🟡 10. Schema Design (Important 🔥)
+********************************************************************************
+
+MongoDB flexible hai but best practice:
+
+👉 Embedding (Nested data)
+
+{
+  "name": "Suraj",
+  "address": {
+    "city": "Bhopal",
+    "pincode": 462001
+  }
+}
+
+👉 Referencing (Relation)
+
+{
+  "studentId": "123",
+  "courseId": "456"
+}
+
+🟢 11. Aggregation (Advanced 🔥🔥)
+********************************************************************************
+
+👉 SQL ke GROUP BY jaisa
+
+db.students.aggregate([
+  { $match: { age: { $gt: 20 } } },
+  { $group: { _id: "$city", total: { $sum: 1 } } }
+])
+
+
+"Har city me kitne students hain jiska age 20 se greater then h "
